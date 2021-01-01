@@ -39,4 +39,5 @@ int main() {
 	cout << sum_of_two_value(liquid);
 	
 	return 0;
+	
 }
