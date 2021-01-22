@@ -3,7 +3,7 @@
 
 using namespace std;
 
-vector<int> failure_function(string s){
+vector<int> failure_function(string& s){
 	
 	vector<int> partial_match(s.size());
 	
@@ -26,19 +26,19 @@ vector<int> failure_function(string s){
 	return partial_match;
 }
 
-vector<int> kmp(string hay, string niddle){
+vector<int> kmp(string& hay, string& needle){
 	
 	int n = hay.size();
-	int m = niddle.size();
+	int m = needle.size();
 	
 	vector<int> result;
-	vector<int> partial_match = failure_function(niddle);
+	vector<int> partial_match = failure_function(needle);
 	
 	int begin = 0;
 	int matched = 0;
 	
 	while(begin <= n - m){
-		if(matched < m and hay[begin + matched] == niddle[matched]){
+		if(matched < m and hay[begin + matched] == needle[matched]){
 			if(++matched == m){
 				result.push_back(begin);
 			}
@@ -65,13 +65,13 @@ int main() {
 	
 	vector<int> answer = kmp(T, P);
 	
-	cout << answer.size() << endl;
+	cout << answer.size() << '\n';
 	
 	for(int i = 0; i < answer.size(); i++){
 		cout << answer[i] + 1 << " ";
 	}
 	
-	cout << endl;
+	cout << '\n';
 	
 	return 0;
 }
