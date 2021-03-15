@@ -12,8 +12,8 @@ int main() {
 	int n, m;
 	cin >> n >> m;
 	
-	vector<int> positive_pos;
-	vector<int> negative_pos;
+	vector<int> positive_pos(1);
+	vector<int> negative_pos(1);
 	
 	for(int i = 0; i < n; i++){
 		
@@ -48,16 +48,8 @@ int main() {
 		idx -= m;
 	}
 	
-	if(positive_pos.size() == 0){
-		answer -= negative_pos.back();
-	}else if(negative_pos.size() == 0){
-		answer -= positive_pos.back();
-	}else if(positive_pos.back() < negative_pos.back()){
-		answer -= negative_pos.back();
-	}else{
-		answer -= positive_pos.back();
-	}
-	
+	answer -= max(positive_pos.back(), negative_pos.back());
 	cout << answer;
+	
 	return 0;
 }
