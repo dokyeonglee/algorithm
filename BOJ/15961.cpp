@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <map>
 
 using namespace std;
 
@@ -17,7 +16,7 @@ int main() {
 		cin >> arr[i];
 	}
 	
-	map<int, int> cnt;
+	vector<int> cnt(d + 1);
 	
 	cnt[c]++;
 	
