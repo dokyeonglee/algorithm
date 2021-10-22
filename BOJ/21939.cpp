@@ -13,13 +13,14 @@ int main() {
 	cin >> n;
 	
 	priority_queue<pair<int, int>> hard, easy;
-	map<int, int> solved;
+	map<int, int> difficulty;
 	
 	for(int i = 0; i < n; i++){
 		int p, l;
 		cin >> p >> l;
 		hard.push(make_pair(l, p));
 		easy.push(make_pair(-l, -p));
+		difficulty[p] = l;
 	}
 	
 	int m;
@@ -37,13 +38,14 @@ int main() {
 			
 			hard.push(make_pair(l, p));
 			easy.push(make_pair(-l, -p));
+			difficulty[p] = l;
 			
 		}else if(command == "solved"){
 			
 			int p;
 			cin >> p;
 
-			solved[p] = 1;
+			difficulty[p] = -1;
 			
 		}else{
 			
@@ -52,16 +54,30 @@ int main() {
 			
 			if(x == 1){
 				
-				while(!hard.empty() and solved[hard.top().second] == 1){
+				while(!hard.empty() and difficulty[hard.top().second] == -1){
 					hard.pop();
+				}
+				
+				if(hard.top().first != difficulty[hard.top().second]){
+					pair<int, int> temp = hard.top();
+					hard.pop();
+					temp.first = difficulty[temp.second];
+					hard.push(temp);
 				}
 				
 				cout << hard.top().second << "\n";
 				
 			}else{
 				
-				while(!easy.empty() and solved[-easy.top().second] == 1){
+				while(!easy.empty() and difficulty[-easy.top().second] == -1){
 					easy.pop();
+				}
+				
+				if(-easy.top().first != difficulty[-easy.top().second]){
+					pair<int, int> temp = easy.top();
+					easy.pop();
+					temp.first = -difficulty[-temp.second];
+					easy.push(temp);
 				}
 				
 				cout << -easy.top().second << "\n";
