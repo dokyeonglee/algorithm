@@ -58,14 +58,7 @@ bool is_prime(unsigned long long n){
 	}
 	return true;
 }
-bool ip(unsigned long long n){
-	for(int i = 2; i * i <= n; i++){
-		if(n % i == 0){
-			return false;
-		}
-	}
-	return true;
-}
+
 int main() {
 	
 	ios_base::sync_with_stdio(0);
