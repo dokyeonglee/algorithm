@@ -34,81 +34,29 @@ int main(){
     int time = 0;
     int idx = 0;
     int idx2 = 0;
-    int direction = 0;
-    int passanger_cnt = 0;
+    int sz = left.size();
+    int sz2 = right.size();
 
-    while(idx < left.size() and idx2 < right.size()){
-        if(direction == 0){
-            if(left[idx].first > right[idx2].first){
-                time = max(time, right[idx2].first + t);
-                while(idx2 < right.size() and right[idx2].first <= time and passanger_cnt <= m){
-                    answer[right[idx2].second] = time + t;
-                    passanger_cnt++;
-                    idx2++;
-                }
-            }else{
-                time = max(time, left[idx].first);
-                while(idx < left.size() and left[idx].first <= time and passanger_cnt <= m){
-                    answer[left[idx].second] = time + t;
-                    passanger_cnt++;
-                    idx++;
-                }
-                direction = 1;
-            }
-        }else{
-            if(left[idx].first > right[idx2].first){
-                time = max(time, right[idx2].first);
-                while(idx2 < right.size() and right[idx2].first <= time and passanger_cnt <= m){
-                    answer[right[idx2].second] = time + t;
-                    passanger_cnt++;
-                    idx2++;
-                }
-            }else{
-                time = max(time, left[idx].first + t);
-                while(idx < left.size() and left[idx].first <= time and passanger_cnt <= m){
-                    answer[left[idx].second] = time + t;
-                    passanger_cnt++;
-                    idx++;
-                }
-                direction = 0;
-            }
+    left.push_back(make_pair(987654321, 987654321));
+    right.push_back(make_pair(987654321, 987654321));
+
+    while(idx < sz or idx2 < sz2){
+        
+        time = max(time, min(left[idx].first, right[idx2].first));
+        for(int i = 0; i < m and idx < sz and left[idx].first <= time; i++){
+            answer[left[idx].second] = time + t;
+            idx++;
         }
         time += t;
-        passanger_cnt = 0;
+
+        time = max(time, min(left[idx].first, right[idx2].first));
+        for(int i = 0; i < m and idx2 < sz2 and right[idx2].first <= time; i++){
+            answer[right[idx2].second] = time + t;
+            idx2++;
+        }
+        time += t;
     }
     
-    if(idx < left.size()){
-        if(direction == 1){
-            time += t;
-        }
-        while(idx < left.size()){
-            time = max(time, left[idx].first);
-            while(idx < left.size() and left[idx].first <= time and passanger_cnt <= m){
-                answer[left[idx].second] = time + t;
-                passanger_cnt++;
-                idx++;
-            }
-            passanger_cnt = 0;
-            time += 2 * t;
-        }
-    }
-
-    if(idx2 < right.size()){
-        if(direction == 0){
-            time += t;
-        }
-        while(idx2 < right.size()){
-            time = max(time, right[idx2].first);
-            while(idx2 < right.size() and right[idx].first <= time and passanger_cnt <= m){
-                answer[right[idx2].second] = time + t;
-                passanger_cnt++;
-                idx2++;
-            }
-            passanger_cnt = 0;
-            time += 2 * t;
-        }
-    }
-
     for(int i = 0; i < n; i++){
         cout << answer[i] << "\n";
     }
