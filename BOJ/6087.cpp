@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <algorithm>
 
 using namespace std;
 using pii = pair<int, int>;
@@ -14,12 +15,12 @@ int bfs(vector<string>& map, vector<pair<int, int>>& pos){
 	int h = map.size();
 	int w = map[0].size();
 	
-	vector<vector<int>> cnt(h, vector<int>(w, 987654321));
-	cnt[pos[0].first][pos[0].second] = 0;
+	vector<vector<vector<int>>> cnt(h, vector<vector<int>>(w, vector<int>(4, 987654321)));
 	
 	queue<piiii> q;
 	for(int i = 0; i < 4; i++){
-		q.push(make_pair(make_pair(pos[0].first, pos[0].second), make_pair(i, 0)));
+		cnt[pos[0].first][pos[0].second][i] = 0;
+		q.push(make_pair(pos[0], make_pair(i, 0)));
 	}
 	
 	while(!q.empty()){
@@ -31,6 +32,10 @@ int bfs(vector<string>& map, vector<pair<int, int>>& pos){
 		
 		for(int i = 0; i < 4; i++){
 			
+			if((dir ^ i) == 2){
+				continue;
+			}
+
 			int next_r = now.first + dr[i];
 			int next_c = now.second + dc[i];
 			
@@ -43,8 +48,9 @@ int bfs(vector<string>& map, vector<pair<int, int>>& pos){
 			}
 			
 			int next_cnt = now_cnt + (dir != i);
-			if(cnt[next_r][next_c] >= next_cnt){
-				cnt[next_r][next_c] = next_cnt;
+
+			if(cnt[next_r][next_c][i] > next_cnt){
+				cnt[next_r][next_c][i] = next_cnt;
 				q.push(make_pair(make_pair(next_r, next_c), make_pair(i, next_cnt)));
 			}
 			
@@ -52,7 +58,7 @@ int bfs(vector<string>& map, vector<pair<int, int>>& pos){
 		
 	}
 	
-	return cnt[pos[1].first][pos[1].second];
+	return *min_element(cnt[pos[1].first][pos[1].second].begin(), cnt[pos[1].first][pos[1].second].end());
 }
 
 int main() {
