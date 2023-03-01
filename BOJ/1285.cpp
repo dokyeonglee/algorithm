@@ -12,15 +12,12 @@ int main(){
     cin >> n;
 
     vector<int> arr(n);
+    
     for(int i = 0; i < n; i++){
         string str;
         cin >> str;
         for(int j = 0; j < n; j++){
             arr[i] |= (str[j] == 'H') << j;
-<<<<<<< HEAD
-=======
-
->>>>>>> a3e89db021e6c7bb648e2dde30425aa43ad5ce9e
         }
     }
 
