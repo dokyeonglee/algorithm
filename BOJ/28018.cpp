@@ -17,7 +17,7 @@ int main(){
         int s, e;
         cin >> s >> e;
         arr[s]++;
-        arr[e]--;
+        arr[e + 1]--;
     }
 
     for(int i = 1; i <= 1000000; i++){
