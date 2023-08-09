@@ -5,15 +5,15 @@
 using namespace std;
 
 int sum_of_two_value(vector<int>& liquid){
+
 	int lo = 0;
 	int hi = liquid.size() - 1;
-	int min_value = 200000000;
+	int min_value = 200000001;
 	
 	while(lo < hi){
 		if(abs(liquid[lo] + liquid[hi]) < abs(min_value)){
 			min_value = liquid[lo] + liquid[hi];	
 		}
-		
 		if(liquid[lo] + liquid[hi] < 0){
 			lo++;
 		}else{
