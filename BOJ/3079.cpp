@@ -17,7 +17,7 @@ int main() {
 	}
 	
 	long long left = 0;
-	long long right = 1e9 * n;
+	long long right = 1e18;
 	long long answer = 1e18;
 	
 	while(left <= right){
@@ -25,11 +25,14 @@ int main() {
 		long long cnt = 0;
 		for(long long a : arr){
 			cnt += mid / a;
+			if(cnt > m){
+				break;
+			}
 		}
 		if(cnt < m){
 			left = mid + 1;
 		}else{
-			answer = min(answer, mid);
+			answer = mid;
 			right = mid - 1;
 		}
 	}
