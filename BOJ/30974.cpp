@@ -12,8 +12,8 @@ long long dijkstra(vector<vector<pair<int, int>>>& adj){
     pq.emplace(0, 1);
 
     while(!pq.empty()){
-        int now = pq.top().second;
         long long dist = -pq.top().first;
+        int now = pq.top().second;
         pq.pop();
         if(distance[now] < dist){
             continue;
