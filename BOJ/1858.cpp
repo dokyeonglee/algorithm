@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <cmath>
 
 using namespace std;
 
@@ -12,47 +13,68 @@ int main() {
 	int n;
 	cin >> n;
 	
-	vector<pair<pair<int, int>, int>> arr(n);
-	for(int i = 0; i < n; i++){
-		arr[i].second = i + 1;
+	vector<pair<pair<int, int>, int>> arr(n + 1);
+	for(int i = 1; i <= n; i++){
+		arr[i].second = i;
 		cin >> arr[i].first.first >> arr[i].first.second;
 	}
 	
-	sort(arr.begin(), arr.end());
+	sort(arr.begin() + 1, arr.end());
 	
 	double max_m = 0;
-	vector<int> pos;
-	vector<int> neg;
-	
-	for(int i = 0; i < n - 1; i++){
+	vector<int> positive;
+	vector<int> negative;
+	vector<int> indices(n + 1);
+
+	for(int i = 1; i < n; i++){
+
 		auto p1 = arr[i];
 		auto p2 = arr[i + 1];
+
+		indices[arr[i].second] = i;
+		indices[arr[i + 1].second] = i + 1;
+
 		double m = (double)(p1.first.second - p2.first.second) / (p1.first.first - p2.first.first);
-		if(max_m <= abs(m)){
-			if(max_m < abs(m)){
-				pos.clear();
-				neg.clear();
-				max_m = abs(m);
+
+		if(max_m <= fabs(m)){
+			if(max_m < fabs(m)){
+				positive.clear();
+				negative.clear();
+				max_m = fabs(m);
 			}
 			if(m > 0){
-				pos.push_back(p1.second);
-				pos.push_back(p2.second);
+				positive.emplace_back(p1.second);
+				positive.emplace_back(p2.second);
 			}else{
-				neg.push_back(p1.second);
-				neg.push_back(p2.second);
+				negative.emplace_back(p1.second);
+				negative.emplace_back(p2.second);
 			}
 		}
 	}
 	
-	sort(pos.begin(), pos.end());
-	sort(neg.begin(), neg.end());
+	sort(positive.begin(), positive.end());
+	sort(negative.begin(), negative.end());
 	
-	pair<int, int> answer = make_pair(n + 2, n + 2);
-	if(pos.size() > 1){
-		answer = make_pair(pos[0], pos[1]);
+	pair<int, int> answer = make_pair(n + 1, n + 1);
+
+	for(int& i : positive){
+		if(i == positive[0]){
+			continue;
+		}
+		if((double)(arr[indices[i]].first.second - arr[indices[positive[0]]].first.second) / (arr[indices[i]].first.first - arr[indices[positive[0]]].first.first) == max_m){
+			answer = make_pair(positive[0], i);
+			break;
+		}
 	}
-	if(neg.size() > 1){
-		answer = min(answer, make_pair(neg[0], neg[1]));
+
+	for(int& i : negative){
+		if(i == negative[0]){
+			continue;
+		}
+		if((double)(arr[indices[i]].first.second - arr[indices[negative[0]]].first.second) / (arr[indices[i]].first.first - arr[indices[negative[0]]].first.first) == -max_m){
+			answer = min(answer, make_pair(negative[0], i));
+			break;
+		}
 	}
 	
 	cout << answer.first << " " << answer.second;
