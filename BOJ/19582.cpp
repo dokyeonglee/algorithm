@@ -38,7 +38,7 @@ int main(){
     if(idx == -1){
         cout << "Kkeo-eok";
     }else{
-        long long temp = sum;
+        long long temp = sum - max_p;
         bool check = true;
         for(int i = idx + 1; i < n; i++){
             if(sum <= x[i]){
@@ -51,7 +51,7 @@ int main(){
         if(check){
             cout << "Kkeo-eok";
         }else{
-            sum = temp - max_p;
+            sum = temp;
             for(int i = idx; i < n; i++){
                 if(sum <= x[i]){
                     sum += p[i];
