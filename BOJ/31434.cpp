@@ -3,28 +3,6 @@
 
 using namespace std;
 
-int solve(vector<int>& arr, vector<int>& brr, vector<vector<int>>& dp, int time, int carrot){
-
-    if(time == dp.size()){
-        return 0;
-    }
-
-    int& ret = dp[time][carrot];
-
-    if(ret != -1){
-        return ret;
-    }
-
-    ret = 0;
-
-
-
-    for(int i = 0; i < arr.size(); i++){
-        
-    }
-
-}
-
 int main(){
 
     ios_base::sync_with_stdio(0);
