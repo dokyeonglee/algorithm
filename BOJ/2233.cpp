@@ -4,17 +4,17 @@
 using namespace std;
 
 int get_lca(vector<vector<int>>& parent, vector<int>& depth, int u, int v){
-cout << u << " " << v << endl;
+
     if(depth[u] > depth[v]){
         swap(u, v);
     }
-cout << u << " " << v << endl;
+
     for(int i = 11; i >= 0; i--){
         if(depth[v] - depth[u] >= (1 << i)){
             v = parent[v][i];
         }
     }
-cout << u << " " << v << endl;
+
     if(u == v){
         return u;
     }
