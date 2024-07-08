@@ -80,7 +80,6 @@ int main() {
                 it--;
             }
         }
-
         answer[idx] = (max_step < d);
     }
 
