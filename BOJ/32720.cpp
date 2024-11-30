@@ -36,4 +36,5 @@ int main(){
     cout << n_factorial * pow(x, mod - 2, mod) % mod;
 
     return 0;
+
 }
