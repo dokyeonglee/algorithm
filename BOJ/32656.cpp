@@ -3,16 +3,22 @@
 
 using namespace std;
 
-void dfs(vector<vector<int>>& tree, vector<bool>& visited, int now, int p, int x){
+bool dfs(vector<vector<int>>& tree, vector<bool>& visited, int now, int p, int x){
+    if(now == x){
+        return true;
+    }
     for(int& next : tree[now]){
         if(next != p){
             if(next == x){
                 visited[now] = true;
-                return;
+                return true;
             }
-            dfs(tree, visited, next, now, x);
+            if(dfs(tree, visited, next, now, x)){
+                return true;
+            }
         }
     }
+    return false;
 }
 
 int main(){
