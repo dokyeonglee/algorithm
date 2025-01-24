@@ -3,29 +3,6 @@
 
 using namespace std;
 
-<<<<<<< HEAD
-=======
-int solve(string& str){
-    int result = 2 * str.size();
-    int idx = 0;
-    while(idx < str.size() and str[idx] == '0'){
-        idx++;
-        result--;
-    }
-    if(idx == str.size()){
-        return 1;
-    }
-    result--;
-    for(int i = idx + 1; i < str.size(); i++){
-        if(str[i] == '1'){
-            result++;
-            break;
-        }
-    }
-    return result;
-}
-
->>>>>>> b6bad66bbaff0c4d7a8eb268f19447725898cef3
 int main(){
 
     ios_base::sync_with_stdio(0);
@@ -99,7 +76,7 @@ int main(){
             }
         }
 
-        cout << max_number_of_digit << " " << min_number_of_digit << "\n";
+        cout << max_number_of_digit << " " << min_number_of_digit << '\n';
 
     }
 
