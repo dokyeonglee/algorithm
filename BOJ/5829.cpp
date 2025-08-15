@@ -10,7 +10,7 @@ int find_end_port(const vector<vector<int>>& sparse_table, const int start, int 
     int end_port = start;
 
     for (int i = MAX_LOG - 1; i >= 0; --i) {
-        if (repeat_count & 1) {
+        if (repeat_count & (1 << i)) {
             end_port = sparse_table[i][end_port];
         }
     }
