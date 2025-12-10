@@ -16,7 +16,7 @@ struct Bomb {
 int calculate_min_force(vector<Bomb>& bombs, const int b) {
     sort(bombs.begin(), bombs.end());
 
-    int left = 0;
+    int left = 1;
     int right = bombs.back().pos - bombs.front().pos;
     int min_force = right;
 
