@@ -19,7 +19,6 @@ int main() {
     dp[0] = 1e9;
     for (auto& [height, speed] : students) {
         for (int i = h; i >= height; --i) {
-            if (dp[i - height])
             dp[i] = max(dp[i], min(dp[i - height], speed));
         }
     }
