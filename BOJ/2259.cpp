@@ -36,7 +36,7 @@ int main() {
         }
     }
 
-    cout << dp[n] << '\n';
+    cout << *max_element(dp.begin(), dp.end()) << '\n';
 
     return 0;
 }
