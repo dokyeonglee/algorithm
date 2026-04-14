@@ -25,10 +25,10 @@ int main() {
     }
 
     if (cnt == 1) {
-        check = true;
+        check |= 2;
     }
 
-    if (a == b && x != 0b11) {
+    if (a == b && check != 0b11) {
         cout << "YES";
     } else {
         cout << "NO";
