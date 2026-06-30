@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int numberOfSubstrings(string s) {
+        vector<int> cnt(3);
+
+        int answer = 0;
+        int left = 0;
+        int occurence = 0;        
+
+        for (int right = 0; right < s.size(); ++right) {
+            if (++cnt[s[right] - 'a'] == 1) {
+                ++occurence;
+            }
+            while (occurence == 3) {
+                if (--cnt[s[left++] - 'a'] == 0) {
+                    --occurence;
+                }
+            }
+            answer += left;
+        }
+        
+        return answer;
+    }
+};
