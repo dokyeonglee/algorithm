@@ -1,0 +1,71 @@
+class Solution {
+public:
+    bool possible(const vector<vector<pair<int, int>>>& adj, int limit, long long k) {
+        vector<long long> distance(adj.size(), LLONG_MAX);
+        distance[0] = 0;
+
+        priority_queue<pair<long long, int>> pq;
+        pq.emplace(0, 0);
+
+        while (!pq.empty()) {
+            auto [dist, now] = pq.top();
+            pq.pop();
+
+            dist = -dist;
+
+            if (dist > distance[now]) {
+                continue;
+            }
+
+            if (now == distance.size() - 1) {
+                return true;
+            }
+
+            for (auto& [next, w] : adj[now]) {
+                if (w < limit) {
+                    continue;
+                }
+                long long cost = dist + w;
+                if (cost > k) {
+                    continue;
+                }
+                if (cost < distance[next]) {
+                    distance[next] = cost;
+                    pq.emplace(-cost, next);
+                }
+            }
+        }
+
+        return false;
+    }
+
+    int findMaxPathScore(vector<vector<int>>& edges, vector<bool>& online, long long k) {
+        int max_cost = INT_MIN;
+        vector<vector<pair<int, int>>> adj(online.size());
+        for (auto& e : edges) {
+            if (online[e[1]]) {
+                max_cost = max(max_cost, e[2]);
+                adj[e[0]].emplace_back(e[1], e[2]);
+            }
+        }
+
+        int left = 0;
+        int right = max_cost;
+        int answer = INT_MAX;
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (possible(adj, mid, k)) {
+                answer = mid;
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        if (answer == INT_MAX) {
+            answer = -1;
+        }
+
+        return answer;
+    }
+};
